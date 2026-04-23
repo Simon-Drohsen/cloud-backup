@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <section class="uk-section uk-section-default">
+        <div class="uk-container uk-container-small">
+            <h1>Login</h1>
+
+            {% for message in app.flashes('success') %}
+                <div class="uk-alert-success" data-uk-alert>
+                    <a class="uk-alert-close" data-uk-close></a>
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+
+            {% if error %}
+                <div class="uk-alert-danger" data-uk-alert>
+                    <a class="uk-alert-close" data-uk-close></a>
+                    <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                </div>
+            {% endif %}
+
+            {{ form_start(form, {
+                action: path('members_user_security_check'),
+                attr: {
+                    novalidate: 'novalidate'
+                }
+            }) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
+
+            <p class="uk-margin-top">
+                Noch kein Konto?
+                <a href="{{ path('members_user_registration_register') }}">Jetzt registrieren</a>
+            </p>
+        </div>
+    </section>
+{% endblock %}
+

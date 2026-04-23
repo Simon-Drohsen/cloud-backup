@@ -1,0 +1,51 @@
+{
+  "name": "@bbzw/cloud-backup",
+  "version": "1.0",
+  "type": "module",
+  "description": "Cloud Backup",
+  "repository": "https://github.com/instride-ch/pimcore-skeleton.git",
+  "author": "BBZW <simon_drohsen@sluz.ch>",
+  "homepage": "https://bbzw.ch",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=22.0"
+  },
+  "packageManager": "yarn@4.5.0",
+  "lint-staged": {
+    "*.js": "yarn eslint --fix",
+    "*.{js,css,scss,yaml}": "yarn prettier --write ."
+  },
+  "scripts": {
+    "build": "encore production --progress",
+    "deploy:prd": "php vendor/bin/dep deploy stage=prd",
+    "dev": "encore dev",
+    "ecs": "php vendor/bin/ecs check",
+    "ecs:fix": "php vendor/bin/ecs check --fix",
+    "phpstan": "php -d memory_limit=4G vendor/bin/phpstan analyse -c phpstan.neon src -l 5",
+    "ssh": "php vendor/bin/dep ssh",
+    "watch": "encore dev --watch"
+  },
+  "dependencies": {
+    "@fontsource/open-sans": "^5.1.0",
+    "core-js": "^3.39.0",
+    "uikit": "^3.21.16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@symfony/webpack-encore": "^5.0.1",
+    "autoprefixer": "^10.4.20",
+    "file-loader": "^6.0.0",
+    "postcss": "^8.4.49",
+    "postcss-loader": "^8.1.1",
+    "sass-embedded": "^1.81.0",
+    "sass-loader": "^16.0.3",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "browserslist": [
+    "defaults",
+    "not op_mini all"
+  ]
+}

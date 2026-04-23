@@ -1,0 +1,4 @@
+pimcore:
+  general:
+    timezone: "Europe/Zurich"
+    domain: "cloud-backup.dev.local"

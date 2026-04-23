@@ -1,0 +1,60 @@
+# remove the following ignores for your project
+/config/pimcore/constants.php
+
+# symfony default
+/.web-server-pid
+/build/
+/phpunit.xml
+/public/bundles/
+
+# local config
+/.env.local
+/.env.local.php
+/.env.*.local
+!/config/local
+/config/local/*
+!/config/local/.gitkeep
+/compose.override.yaml
+
+# Pimcore
+/var/*
+!/var/.gitkeep
+/var/admin/*
+!/var/admin/custom-logo.image
+!/var/classes
+/var/classes/DataObject
+
+!/var/config
+/var/config/admin_system_settings/admin_system_settings.yaml
+/var/config/system_settings/system_settings.yaml
+/var/config/debug-mode.php
+/var/config/maintenance.php
+
+# project specific recommendations
+/var/config/tag-manager.php
+/var/config/reports.php
+
+/public/var/
+/public/sitemap*.xml
+
+# composer
+/vendor/
+/cache/
+
+# PhpStorm / IDEA
+/.idea/
+
+# Yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
+
+# Symfony Asset Mapper
+/assets/vendor/
+
+# Project Setup
+/deployer.phar
+/install-deploy.php
+/supervisord.conf
+/supervisord.pid

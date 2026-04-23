@@ -1,0 +1,67 @@
+{
+  "name": "bbzw/cloud-backup",
+  "type": "project",
+  "description": "Cloud Backup",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "bbzw",
+      "email": "simon_drohsen@sluz.ch",
+      "homepage": "https://bbzw.ch",
+      "role": "School"
+    }
+  ],
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/runtime": true
+    }
+  },
+  "require": {
+    "php": ">=8.3",
+    "dachcom-digital/members": "^5.1",
+    "pimcore/admin-ui-classic-bundle": "^1.6.2",
+    "pimcore/pimcore": "11.5.14.1",
+    "symfony/dotenv": "^6.4.13",
+    "symfony/form": "^6.4",
+    "symfony/runtime": "^6.4.14",
+    "symfony/webpack-encore-bundle": "^1.17.2"
+  },
+  "require-dev": {
+    "deployer/deployer": "^7.5.5",
+    "phpstan/phpstan": "^2.0.2",
+    "phpstan/phpstan-deprecation-rules": "^2.0.0",
+    "phpstan/phpstan-symfony": "^2.0.0",
+    "symplify/easy-coding-standard": "^12.3.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "Pimcore\\Model\\DataObject\\": "var/classes/DataObject"
+    }
+  },
+  "scripts": {
+    "post-create-project-cmd": "Pimcore\\Composer::postCreateProject",
+    "post-install-cmd": [
+      "Pimcore\\Composer::postInstall",
+      "@pimcore-scripts"
+    ],
+    "post-update-cmd": [
+      "Pimcore\\Composer::postUpdate",
+      "@pimcore-scripts"
+    ],
+    "pimcore-scripts": [
+      "Pimcore\\Composer::clearCache",
+      "Pimcore\\Composer::installAssets"
+    ]
+  },
+  "conflict": {
+    "symfony/symfony": "*"
+  },
+  "extra": {
+    "symfony-assets-install": "relative"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

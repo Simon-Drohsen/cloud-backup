@@ -1,0 +1,22 @@
+{
+  "entrypoints": {
+    "js/app": {
+      "js": [
+        "/build/runtime.e5d67fbc.js",
+        "/build/51.f8096d72.js",
+        "/build/js/app.5c6f09a5.js"
+      ],
+      "css": [
+        "/build/js/app.2aeed496.css"
+      ]
+    },
+    "css/editmode": {
+      "js": [
+        "/build/runtime.e5d67fbc.js"
+      ],
+      "css": [
+        "/build/css/editmode.690923de.css"
+      ]
+    }
+  }
+}

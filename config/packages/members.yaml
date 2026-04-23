@@ -1,0 +1,4 @@
+members:
+  post_register_type: confirm_instant
+  restriction:
+    enabled: true

@@ -1,0 +1,38 @@
+{% set registerPage = path('members_user_registration_register') %}
+{% set loginPage = path('members_user_security_login') %}
+{% set currentRoute = app.request.attributes.get('_route') %}
+
+<ul class="uk-navbar-nav">
+    {% for page in navigation|filter(page => page.isVisible and menu_renderer.accept(page)) %}
+        <li class="{{ page.hasPages ? 'uk-parent' }} {{ page.isActive(true) ? 'uk-active' }}">
+            <a href="{{ page.href }}">{{ page.label }}</a>
+
+            {% if page.hasPages %}
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        {% for child in page.pages|filter(child => child.isVisible and menu_renderer.accept(child)) %}
+                            <li{% if child.isActive(true) %} class="uk-active"{% endif %}>
+                                <a href="{{ child.href }}" target="{{ child.target }}">{{ child.label }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+    {% if app.user is null %}
+        <li class="{{ currentRoute == 'app_members_register' ? 'uk-active' }}">
+            <a href="{{ registerPage }}">{{ 'members_user_registration_register'|trans }}</a>
+        </li>
+        <li class="{{ currentRoute == 'app_members_login' ? 'uk-active' }}">
+            <a href="{{ loginPage }}">{{ 'members_user_security_login'|trans }}</a>
+        </li>
+    {% else %}
+        <li class="{{ currentRoute in ['app_member_files_index', 'app_member_files_upload', 'app_member_files_download'] ? 'uk-active' }}">
+            <a href="{{ path('app_member_files_index') }}">My Files</a>
+        </li>
+        <li class="{{ currentRoute in ['app_company_files_index', 'app_company_files_upload', 'app_company_files_download'] ? 'uk-active' }}">
+            <a href="{{ path('app_company_files_index') }}">Company Files</a>
+        </li>
+    {% endif %}
+</ul>

@@ -1,0 +1,28 @@
+# frontend routing
+members_oauth:
+  resource: '@MembersBundle/config/pimcore/routing/oauth.yaml'
+  prefix: /oauth
+
+members_auth:
+  resource: '@MembersBundle/config/pimcore/routing/auth.yaml'
+  prefix: /auth
+
+members_registration:
+  resource: '@MembersBundle/config/pimcore/routing/registration.yaml'
+  prefix: /register
+
+members_change_password:
+  resource: '@MembersBundle/config/pimcore/routing/change_password.yaml'
+  prefix: /profile
+
+members_profile:
+  resource: '@MembersBundle/config/pimcore/routing/profile.yaml'
+  prefix: /profile
+
+members_resetting:
+  resource: '@MembersBundle/config/pimcore/routing/resetting.yaml'
+  prefix: /resetting
+
+members_delete_account:
+  resource: '@MembersBundle/config/pimcore/routing/delete_account.yaml'
+  prefix: /profile

@@ -1,0 +1,15 @@
+{% for type, messages in app.flashes(['primary', 'success', 'warning', 'danger']) %}
+    {% set alertClass = {
+        'primary': 'primary',
+        'success': 'success',
+        'warning': 'warning',
+        'danger': 'danger'
+    }[type] ?? '' %}
+
+    {% for message in messages %}
+        <div class="uk-alert uk-alert-{{ alertClass }}" data-uk-alert>
+            <a class="uk-alert-close" data-uk-close></a>
+            <p>{{ message|raw }}</p>
+        </div>
+    {% endfor %}
+{% endfor %}

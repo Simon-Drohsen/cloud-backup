@@ -1,0 +1,11 @@
+_pimcore:
+  resource: "@PimcoreCoreBundle/config/routing.yaml"
+
+pimcore_admin:
+  resource: "routes/pimcore_admin.yaml"
+
+members:
+  resource: "routes/members.yaml"
+
+controllers:
+  resource: "routes/annotations.yaml"
