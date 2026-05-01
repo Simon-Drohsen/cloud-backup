@@ -20,6 +20,7 @@
   },
   "require": {
     "php": ">=8.3",
+    "altcha-org/altcha": "^1.2",
     "dachcom-digital/members": "^5.1",
     "pimcore/admin-ui-classic-bundle": "^1.6.2",
     "pimcore/pimcore": "11.5.14.1",
@@ -29,10 +30,13 @@
     "symfony/webpack-encore-bundle": "^1.17.2"
   },
   "require-dev": {
-    "deployer/deployer": "^7.5.5",
+    "deployer/deployer": "^7.5",
     "phpstan/phpstan": "^2.0.2",
     "phpstan/phpstan-deprecation-rules": "^2.0.0",
     "phpstan/phpstan-symfony": "^2.0.0",
+    "phpunit/phpunit": "^11.5",
+    "symfony/browser-kit": "^6.4",
+    "symfony/css-selector": "^6.4",
     "symplify/easy-coding-standard": "^12.3.6"
   },
   "autoload": {
@@ -42,6 +46,7 @@
     }
   },
   "scripts": {
+    "test": "phpunit",
     "post-create-project-cmd": "Pimcore\\Composer::postCreateProject",
     "post-install-cmd": [
       "Pimcore\\Composer::postInstall",

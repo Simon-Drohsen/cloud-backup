@@ -12,6 +12,13 @@
                 </div>
             {% endfor %}
 
+            {% for message in app.flashes('error') %}
+                <div class="uk-alert-danger" data-uk-alert>
+                    <a class="uk-alert-close" data-uk-close></a>
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+
             {% if error %}
                 <div class="uk-alert-danger" data-uk-alert>
                     <a class="uk-alert-close" data-uk-close></a>
@@ -26,6 +33,11 @@
                 }
             }) }}
                 {{ form_widget(form) }}
+                <altcha-widget
+                    challenge="{{ path('app_altcha_challenge', {context: 'members_login'}) }}"
+                    auto="onsubmit"
+                    name="altcha"
+                ></altcha-widget>
             {{ form_end(form) }}
 
             <p class="uk-margin-top">

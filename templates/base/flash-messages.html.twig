@@ -1,9 +1,10 @@
-{% for type, messages in app.flashes(['primary', 'success', 'warning', 'danger']) %}
+{% for type, messages in app.flashes(['primary', 'success', 'warning', 'danger', 'error']) %}
     {% set alertClass = {
         'primary': 'primary',
         'success': 'success',
         'warning': 'warning',
-        'danger': 'danger'
+        'danger': 'danger',
+        'error': 'danger'
     }[type] ?? '' %}
 
     {% for message in messages %}

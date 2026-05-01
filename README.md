@@ -93,3 +93,10 @@ Note: setup scripts expect these files to exist:
 `.env.local`,
 `var/config/admin_system_settings/admin_system_settings.yaml`,
 `var/config/system_settings/system_settings.yaml`.
+
+For ALTCHA, set a strong local secret in `.env.local`:
+
+```bash
+ALTCHA_HMAC_KEY="your-long-random-secret"
+```
+

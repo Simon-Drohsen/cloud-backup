@@ -5,6 +5,8 @@
         <div class="uk-container uk-container-large">
             <h1>Dateien</h1>
 
+            {{ include('base/flash-messages.html.twig') }}
+
             {% set isCompanyTab = activeTab == 'company' and canAccessCompanyFiles %}
             {% set currentUploadForm = isCompanyTab ? companyUploadForm : personalUploadForm %}
             {% set currentFolderForm = isCompanyTab ? companyFolderForm : personalFolderForm %}
@@ -33,6 +35,22 @@
                     <span>Aktueller Ordner: {{ currentFolderName }}</span>
                 {% endif %}
             </div>
+
+            {% if not currentUploadForm.vars.valid %}
+                <div class="uk-alert uk-alert-danger" data-uk-alert>
+                    <a class="uk-alert-close" data-uk-close></a>
+                    {{ form_errors(currentUploadForm) }}
+                    {{ form_errors(currentUploadForm.file) }}
+                </div>
+            {% endif %}
+
+            {% if not currentFolderForm.vars.valid %}
+                <div class="uk-alert uk-alert-danger" data-uk-alert>
+                    <a class="uk-alert-close" data-uk-close></a>
+                    {{ form_errors(currentFolderForm) }}
+                    {{ form_errors(currentFolderForm.name) }}
+                </div>
+            {% endif %}
 
             <div class="uk-card uk-card-default uk-card-body">
                 <h2 class="uk-card-title">{{ isCompanyTab ? 'Dateien deiner Firma' : 'Deine Dateien' }}</h2>
@@ -126,9 +144,20 @@
                 <div class="uk-modal-dialog uk-modal-body">
                     <button class="uk-modal-close-default" type="button" data-uk-close></button>
                     <h2 class="uk-modal-title">Datei hochladen</h2>
-                    {{ form_start(currentUploadForm, {attr: {enctype: 'multipart/form-data'}}) }}
+                    {{ form_start(currentUploadForm, {attr: {enctype: 'multipart/form-data', 'data-upload-progress-form': 'true'}}) }}
                         <input type="hidden" name="folderId" value="{{ currentFolderId }}">
+                        {{ form_errors(currentUploadForm) }}
                         {{ form_row(currentUploadForm.file) }}
+                        <altcha-widget
+                            challenge="{{ path('app_altcha_challenge', {context: isCompanyTab ? 'member_files_upload_company' : 'member_files_upload_personal'}) }}"
+                            auto="onsubmit"
+                            name="altcha"
+                        ></altcha-widget>
+                        <div class="upload-progress" data-upload-progress>
+                            <progress class="uk-progress" value="0" max="100" data-upload-progress-bar></progress>
+                            <p class="uk-text-meta upload-progress__label" data-upload-progress-label>Upload: 0%</p>
+                            <p class="uk-text-danger upload-progress__error" data-upload-progress-error hidden></p>
+                        </div>
                         <button class="uk-button uk-button-primary" type="submit">Hochladen</button>
                     {{ form_end(currentUploadForm) }}
                 </div>
@@ -140,6 +169,7 @@
                     <h2 class="uk-modal-title">Ordner erstellen</h2>
                     {{ form_start(currentFolderForm) }}
                         <input type="hidden" name="folderId" value="{{ currentFolderId }}">
+                        {{ form_errors(currentFolderForm) }}
                         {{ form_row(currentFolderForm.name) }}
                         <button class="uk-button uk-button-secondary" type="submit">Ordner erstellen</button>
                     {{ form_end(currentFolderForm) }}

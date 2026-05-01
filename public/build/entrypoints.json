@@ -3,11 +3,11 @@
     "js/app": {
       "js": [
         "/build/runtime.e5d67fbc.js",
-        "/build/51.f8096d72.js",
-        "/build/js/app.5c6f09a5.js"
+        "/build/43.acfc096f.js",
+        "/build/js/app.f4da0dbc.js"
       ],
       "css": [
-        "/build/js/app.2aeed496.css"
+        "/build/js/app.e6721965.css"
       ]
     },
     "css/editmode": {

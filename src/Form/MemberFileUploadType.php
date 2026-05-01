@@ -21,7 +21,7 @@ class MemberFileUploadType extends AbstractType
             'constraints' => [
                 new Assert\NotNull(message: 'Bitte wähle eine Datei aus.'),
                 new Assert\File(
-                    maxSize: '5000M',
+                    maxSize: '50000M',
                     maxSizeMessage: 'Die Datei ist zu gross (maximal {{ limit }}).'
                 ),
             ],

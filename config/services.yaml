@@ -5,6 +5,8 @@ imports:
 parameters:
   secret: "xIJkSs6NXEfRhsHzwmu6Gn7/fkuC4/brzKUuhG8N8hE="
   pimcore_executable_php: "%env(PIMCORE_EXECUTABLE_PHP)%"
+  app.altcha_hmac_key: "%env(string:ALTCHA_HMAC_KEY)%"
+  app.altcha_ttl_seconds: "%env(int:ALTCHA_TTL_SECONDS)%"
 
   mailer_dsn_main: "%env(MAILER_DSN_MAIN)%"
   mailer_dsn_newsletter: "%env(MAILER_DSN_NEWSLETTER)%"
@@ -38,3 +40,9 @@ services:
     resource: "../src/Controller"
     public: true
     tags: ["controller.service_arguments"]
+
+  App\Service\AltchaService:
+    arguments:
+      $hmacKey: "%app.altcha_hmac_key%"
+      $ttlSeconds: "%app.altcha_ttl_seconds%"
+

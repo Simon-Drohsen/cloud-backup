@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Form\MemberFileUploadType;
 use App\Form\MemberFolderCreateType;
+use App\Service\AltchaService;
 use App\Service\MemberFileStorageService;
 use Pimcore\Controller\FrontendController;
 use Pimcore\Model\Asset;
@@ -13,6 +14,7 @@ use Pimcore\Model\Asset\Folder;
 use Pimcore\Model\DataObject\MembersUser;
 use Pimcore\Model\Element\DuplicateFullPathException;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +30,8 @@ class MemberFileController extends FrontendController
     private const string TAB_COMPANY = 'company';
 
     public function __construct(
-        private readonly MemberFileStorageService $memberFileStorageService
+        private readonly MemberFileStorageService $memberFileStorageService,
+        private readonly AltchaService $altchaService
     ) {
     }
 
@@ -87,6 +90,10 @@ class MemberFileController extends FrontendController
         $form = $this->createPersonalUploadForm();
         $form->handleRequest($request);
 
+        if ($form->isSubmitted()) {
+            $this->appendAltchaError($form, $request, 'member_files_upload_personal');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFile = $form->get('file')->getData();
             if ($uploadedFile instanceof UploadedFile) {
@@ -122,6 +129,10 @@ class MemberFileController extends FrontendController
         $form = $this->createCompanyUploadForm();
         $form->handleRequest($request);
 
+        if ($form->isSubmitted()) {
+            $this->appendAltchaError($form, $request, 'member_files_upload_company');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFile = $form->get('file')->getData();
             if ($uploadedFile instanceof UploadedFile) {
@@ -156,6 +167,10 @@ class MemberFileController extends FrontendController
         $form = $this->createPersonalFolderForm();
         $form->handleRequest($request);
 
+        if ($form->isSubmitted()) {
+            $this->appendAltchaError($form, $request, 'member_files_folder_personal');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $folderName = (string) $form->get('name')->getData();
             $this->memberFileStorageService->createPersonalFolder($user, $folderName, $personalFolderId);
@@ -188,6 +203,10 @@ class MemberFileController extends FrontendController
 
         $form = $this->createCompanyFolderForm();
         $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $this->appendAltchaError($form, $request, 'member_files_folder_company');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $folderName = (string) $form->get('name')->getData();
@@ -525,6 +544,17 @@ class MemberFileController extends FrontendController
         $folderId = (int) $request->get($key, 0);
 
         return $folderId > 0 ? $folderId : null;
+    }
+
+    private function appendAltchaError(FormInterface $form, Request $request, string $context): void
+    {
+        $payload = (string) $request->request->get('altcha', '');
+
+        if ($this->altchaService->isValidPayload($payload, $context)) {
+            return;
+        }
+
+        $form->addError(new FormError('Bitte bestaetige zuerst den Spam-Schutz.'));
     }
 
     /**
