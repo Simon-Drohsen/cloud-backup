@@ -44,7 +44,7 @@ services:
   apache:
     image: "httpd:latest"
     ports:
-      - "80:80"
+      - "8000:80"
       - "443:443"
     volumes:
       - ".:/usr/local/apache2/htdocs:cached"
